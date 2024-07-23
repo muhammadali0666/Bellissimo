@@ -4,6 +4,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const multer = require("multer");
+const connectDb = require("./db/config");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -16,6 +17,7 @@ app.use(
     credentials: true,
   })
 );
+connectDb()
 
 ///////////////// image storage engine
 
