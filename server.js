@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const multer = require("multer");
 const connectDb = require("./db/config");
+const productRouter = require("./router/product_router");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -17,7 +18,10 @@ app.use(
     credentials: true,
   })
 );
-connectDb()
+connectDb();
+
+/////////// router
+app.use(productRouter);
 
 ///////////////// image storage engine
 
