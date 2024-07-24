@@ -44,8 +44,31 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
+const updateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, description, image, category, new_price, old_price } =
+      req.body;
+    await Products.findByIdAndUpdate(id, {
+      title,
+      description,
+      image,
+      category,
+      new_price,
+      old_price,
+    });
+
+    const foundedProduct = await Products.findById(id);
+
+    res.json(foundedProduct);
+  } catch (error) {
+    return next(new InternalServerError(500, error.message));
+  }
+};
+
 module.exports = {
   getAllProducts,
   createProduct,
   deleteProduct,
+  updateProduct,
 };
