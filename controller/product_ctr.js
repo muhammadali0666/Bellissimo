@@ -4,7 +4,7 @@ const { Products } = require("../model");
 const getAllProducts = async (_, res, next) => {
   try {
     const products = await Products.find();
-    return res.json(products);
+    return res.status(200).json(products);
   } catch (error) {
     return next(new InternalServerError(500, error.message));
   }
@@ -15,7 +15,7 @@ const createProduct = async (req, res, next) => {
     const { title, description, image, category, new_price, old_price } =
       req.body;
 
-    await Products.create({
+    const newProduct = await Products.create({
       title,
       description,
       image,
@@ -24,8 +24,10 @@ const createProduct = async (req, res, next) => {
       old_price,
     });
 
-    return res.json({
+    return res.status(201).json({
+      status: 201,
       message: "Product added",
+      result: newProduct,
     });
   } catch (error) {
     return next(new InternalServerError(500, error.message));
@@ -35,9 +37,11 @@ const createProduct = async (req, res, next) => {
 const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await Products.findByIdAndDelete({ _id: id });
-    res.json({
+    const foundedProduct = await Products.findByIdAndDelete({ _id: id });
+    res.status(201).json({
       message: "Successfully deleted",
+      status: 201,
+      result: foundedProduct,
     });
   } catch (error) {
     return next(new InternalServerError(500, error.message));
@@ -60,7 +64,11 @@ const updateProduct = async (req, res, next) => {
 
     const foundedProduct = await Products.findById(id);
 
-    res.json(foundedProduct);
+    res.status(201).json({
+      status: 201,
+      message: "Successfully updated",
+      result: foundedProduct,
+    });
   } catch (error) {
     return next(new InternalServerError(500, error.message));
   }
