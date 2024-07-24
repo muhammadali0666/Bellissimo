@@ -10,6 +10,16 @@ const getAllProducts = async (_, res, next) => {
   }
 };
 
+const getOneProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Products.findOne({ _id: id });
+    return res.status(200).json(product);
+  } catch (error) {
+    return next(new InternalServerError(500, error.message));
+  }
+};
+
 const createProduct = async (req, res, next) => {
   try {
     const { title, description, image, category, new_price, old_price } =
@@ -76,6 +86,7 @@ const updateProduct = async (req, res, next) => {
 
 module.exports = {
   getAllProducts,
+  getOneProduct,
   createProduct,
   deleteProduct,
   updateProduct,
