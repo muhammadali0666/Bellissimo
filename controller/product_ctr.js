@@ -32,7 +32,20 @@ const createProduct = async (req, res, next) => {
   }
 };
 
+const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Products.findByIdAndDelete({ _id: id });
+    res.json({
+      message: "Successfully deleted",
+    });
+  } catch (error) {
+    return next(new InternalServerError(500, error.message));
+  }
+};
+
 module.exports = {
   getAllProducts,
   createProduct,
+  deleteProduct,
 };
