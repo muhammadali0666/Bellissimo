@@ -6,6 +6,7 @@ const path = require("path");
 const multer = require("multer");
 const connectDb = require("./db/config");
 const productRouter = require("./router/product_router");
+const userRouter = require("./router/user_router");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -22,6 +23,7 @@ connectDb();
 
 /////////// router
 app.use(productRouter);
+app.use(userRouter);
 
 ///////////////// image storage engine
 

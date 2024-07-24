@@ -1,0 +1,154 @@
+const { User } = require("../model");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const { AuthorizationError, InternalServerError } = require("../utils/error");
+
+const register = async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (user) {
+      return next(new AuthorizationError(409, "user already exists"));
+    }
+    ///////////////////////////// nodemailer
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "muhammadalishuhratjonov50@gmail.com",
+        pass: "gmlmvvatzkuedfqe",
+      },
+    });
+
+    let randomStr = "";
+    let randomNumberOne = Math.floor(Math.random() * 10);
+    let randomNumberTwo = Math.floor(Math.random() * 10);
+    let randomNumberThree = Math.floor(Math.random() * 10);
+    let randomNumberFour = Math.floor(Math.random() * 10);
+    let randomNumberFiveth = Math.floor(Math.random() * 10);
+    let randomNumberSixth = Math.floor(Math.random() * 10);
+
+    randomStr += randomNumberOne;
+    randomStr += randomNumberTwo;
+    randomStr += randomNumberThree;
+    randomStr += randomNumberFour;
+    randomStr += randomNumberFiveth;
+    randomStr += randomNumberSixth;
+
+    let mailOptions = {
+      from: "muhammadalishuhratjonov50@gmail.com",
+      to: `${email}`,
+      subject: "ZarStore verify code ✋",
+      html: `<b> your verification code is <span style="color: blue; font-size: 25px;">${randomStr}</span></b>`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+    /////////////////////////////
+
+    if (!password.trim()) {
+      return next(new AuthorizationError(400, "Password invalid"));
+    }
+
+    let hash = await bcrypt.hash(password, 12);
+
+    await User.create({ username, email, password: hash, verify: randomStr });
+
+    return res.status(201).json({
+      status: 201,
+      message: "Registered!",
+      email,
+    });
+  } catch (err) {
+    return next(new InternalServerError(500, err.message));
+  }
+};
+
+const verifyCode = async (req, res, next) => {
+  try {
+    const { verify, email } = req.body;
+
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return next(new AuthorizationError(404, "User not found"));
+    }
+    if (user.verify !== verify) {
+      return res.status(400).json({
+        status: 400,
+        message: "verify code mistake or you must be refresh and try again",
+      });
+    }
+
+    if (user.verify === verify) {
+      await User.findByIdAndUpdate(user._id, { verified: true });
+      let token = await jwt.sign(
+        { id: user.id, email: user.email, role: user.role },
+        process.env.SEKRET_KEY,
+        {
+          expiresIn: "24h",
+        }
+      );
+      return res.status(201).send({
+        status: 201,
+        message: "Success",
+        result: token,
+      });
+    }
+  } catch (err) {
+    return next(new InternalServerError(500, err.message));
+  }
+};
+
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    let user = await User.findOne({ email: email });
+
+    let founEmail = user.email === email;
+
+    if (!founEmail) {
+      return res.status(404).json({
+        status: 404,
+        message: "You haven't registered",
+      });
+    }
+
+    let check = await bcrypt.compare(password, user.password);
+
+    if (check && user.verified === true) {
+      let token = await jwt.sign(
+        { id: user.id, email: user.email },
+        process.env.SEKRET_KEY,
+        {
+          expiresIn: "24h",
+        }
+      );
+      return res.status(201).json({
+        status: 201,
+        message: "Success",
+        result: token,
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        message: "Password wrong or you are not veriy your code",
+      });
+    }
+  } catch (err) {
+    return next(new InternalServerError(500, err.message));
+  }
+};
+
+module.exports = {
+  register,
+  verifyCode,
+  login,
+};
