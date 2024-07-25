@@ -1,32 +1,15 @@
-class ValidationError extends Error {
-  constructor(status, message) {
-    super();
-    this.status = status;
-    this.name = "ValidationError";
-    this.message = message;
-  }
-}
-
-class AuthorizationError extends Error {
-  constructor(status, message) {
-    super();
-    this.status = status;
-    this.name = "AuthorizationError";
-    this.message = message;
-  }
-}
-
-class InternalServerError extends Error {
-  constructor(status, message) {
-    super();
-    this.status = status;
-    this.name = "InternalServerError";
-    this.message = message;
-  }
-}
-
-module.exports = {
-  ValidationError,
-  AuthorizationError,
-  InternalServerError,
-};
+// module.exports = class BaseError extends Error {
+//   status;
+//   errors;
+//   constructor(status, message, errors) {
+//     super(message);
+//     this.status = status;
+//     this.errors = errors;
+//   }
+//   static UnuthorizedError() {
+//     return new BaseError(401, "User is not authorized");
+//   }
+//   static BadRequest(message, errors = []) {
+//     return new BaseError(400, message, errors);
+//   }
+// };

@@ -1,4 +1,3 @@
-const { InternalServerError } = require("../utils/error");
 const { Products } = require("../model");
 
 const getAllProducts = async (_, res, next) => {
@@ -6,7 +5,7 @@ const getAllProducts = async (_, res, next) => {
     const products = await Products.find();
     return res.status(200).json(products);
   } catch (error) {
-    return next(new InternalServerError(500, error.message));
+   next(error);
   }
 };
 
@@ -16,7 +15,7 @@ const getOneProduct = async (req, res, next) => {
     const product = await Products.findOne({ _id: id });
     return res.status(200).json(product);
   } catch (error) {
-    return next(new InternalServerError(500, error.message));
+   next(error);
   }
 };
 
@@ -40,7 +39,7 @@ const createProduct = async (req, res, next) => {
       result: newProduct,
     });
   } catch (error) {
-    return next(new InternalServerError(500, error.message));
+   next(error);
   }
 };
 
@@ -54,7 +53,7 @@ const deleteProduct = async (req, res, next) => {
       result: foundedProduct,
     });
   } catch (error) {
-    return next(new InternalServerError(500, error.message));
+   next(error);
   }
 };
 
@@ -80,7 +79,7 @@ const updateProduct = async (req, res, next) => {
       result: foundedProduct,
     });
   } catch (error) {
-    return next(new InternalServerError(500, error.message));
+   next(error);
   }
 };
 

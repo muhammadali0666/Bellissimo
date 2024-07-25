@@ -7,6 +7,7 @@ const multer = require("multer");
 const connectDb = require("./db/config");
 const productRouter = require("./router/product_router");
 const userRouter = require("./router/user_router");
+const errorMiddleware = require("./middleware/error.middleware");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -47,6 +48,8 @@ app.post("/upload", upload.single("product"), (req, res) => {
     image_url: `http://localhost:${PORT}/images/${req.file.filename}`,
   });
 });
+
+app.use(errorMiddleware)
 
 app.listen(PORT, () => {
   console.log(`server is running on the http://localhost:${PORT}`);

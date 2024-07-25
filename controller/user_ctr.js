@@ -2,14 +2,14 @@ const { User } = require("../model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const { AuthorizationError, InternalServerError } = require("../utils/error");
+const BaseError = require("../errors/base_error");
 
 const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (user) {
-      return next(new AuthorizationError(409, "user already exists"));
+      throw BaseError.BadRequest("user already exists");
     }
     ///////////////////////////// nodemailer
     let transporter = nodemailer.createTransport({
@@ -53,7 +53,7 @@ const register = async (req, res, next) => {
     /////////////////////////////
 
     if (!password.trim()) {
-      return next(new AuthorizationError(400, "Password invalid"));
+      throw BaseError.BadRequest("Password invalid");
     }
 
     let hash = await bcrypt.hash(password, 12);
@@ -65,8 +65,8 @@ const register = async (req, res, next) => {
       message: "Registered!",
       email,
     });
-  } catch (err) {
-    return next(new InternalServerError(500, err.message));
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -77,13 +77,10 @@ const verifyCode = async (req, res, next) => {
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      return next(new AuthorizationError(404, "User not found"));
+      throw BaseError.BadRequest("User not found");
     }
     if (user.verify !== verify) {
-      return res.status(400).json({
-        status: 400,
-        message: "verify code mistake or you must be refresh and try again",
-      });
+      throw BaseError.BadRequest("verify code mistake or you must be refresh and try again");
     }
 
     if (user.verify === verify) {
@@ -101,8 +98,8 @@ const verifyCode = async (req, res, next) => {
         result: token,
       });
     }
-  } catch (err) {
-    return next(new InternalServerError(500, err.message));
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -115,10 +112,7 @@ const login = async (req, res, next) => {
     let founEmail = user.email === email;
 
     if (!founEmail) {
-      return res.status(404).json({
-        status: 404,
-        message: "You haven't registered",
-      });
+      throw BaseError.BadRequest("You have not registered");
     }
 
     let check = await bcrypt.compare(password, user.password);
@@ -137,13 +131,12 @@ const login = async (req, res, next) => {
         result: token,
       });
     } else {
-      res.status(400).json({
-        status: 400,
-        message: "Password wrong or you are not veriy your code",
-      });
+      throw BaseError.BadRequest(
+        "Password wrong or you are not veriy your code"
+      );
     }
-  } catch (err) {
-    return next(new InternalServerError(500, err.message));
+  } catch (error) {
+    next(error);
   }
 };
 
