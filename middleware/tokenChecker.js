@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const BaseError = require("../errors/base_error");
 
-async function requireAuth(req, res, next) {
+async function requireAdmin(req, res, next) {
   try {
     const token = req.headers.token;
     if (!token) {
@@ -13,9 +13,12 @@ async function requireAuth(req, res, next) {
         throw BaseError.BadRequest("token not active");
       }
       acceptVariable = decoded;
+      if(acceptVariable.role !== "admin"){
+        throw BaseError.BadRequest("You are not admin")
+      }
     } catch (err) {
       throw BaseError.BadRequest(
-        "Invalid token and try login or register again"
+        "Invalid token you are not admin and try login or register again"
       );
     }
     next();
@@ -24,4 +27,4 @@ async function requireAuth(req, res, next) {
   }
 }
 
-module.exports = requireAuth;
+module.exports = requireAdmin;

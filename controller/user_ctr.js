@@ -119,7 +119,7 @@ const login = async (req, res, next) => {
 
     if (check && user.verified === true) {
       let token = await jwt.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, email: user.email, role: user.role },
         process.env.SEKRET_KEY,
         {
           expiresIn: "24h",
