@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { v4 } = require("uuid");
 
 const productModel = new mongoose.Schema({
   title: {
@@ -19,12 +20,24 @@ const productModel = new mongoose.Schema({
   },
   new_price: {
     type: Number,
-    required: true,
   },
   old_price: {
     type: Number,
     required: true,
   },
+  pizza_products: [
+    {
+      id: { type: String, default: v4() },
+      pizzaId: String,
+      productTitle: String,
+      productPrice: Number,
+      image: String,
+      pizzaSize: String,
+      category: {
+        default: "pizza"
+      }
+    },
+  ],
 });
 
 const Products = mongoose.model("Product", productModel);
