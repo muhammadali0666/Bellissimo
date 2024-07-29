@@ -34,6 +34,7 @@ const productModel = new mongoose.Schema({
       image: String,
       pizzaSize: String,
       category: {
+        type: String,
         default: "pizza"
       }
     },
