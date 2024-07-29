@@ -40,12 +40,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.use("/images", express.static("upload/images"));
+app.use("/images", express.static("https://bellissimo-avt2.onrender.com/upload/images"));
 
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `https://api.render.com/deploy/srv-cqjk09qj1k6c739tkjbg?key=wQiuV2VyA8I/images/${req.file.filename}`,
+    image_url: `https://bellissimo-avt2.onrender.com/images/${req.file.filename}`,
   });
 });
 
@@ -58,5 +58,5 @@ app.get("/", (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`server is running on the http://localhost:${PORT}`);
+  console.log(`server is running`);
 });
