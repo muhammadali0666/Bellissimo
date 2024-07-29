@@ -51,6 +51,12 @@ app.post("/upload", upload.single("product"), (req, res) => {
 
 app.use(errorMiddleware)
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "success"
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`server is running on the http://localhost:${PORT}`);
 });
