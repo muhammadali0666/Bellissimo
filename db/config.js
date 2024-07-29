@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
-require("dotenv").config()
+require("dotenv").config();
 
 async function connectDb() {
   try {
-     mongoose.connect(process.env.DB_PASSWORD, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }).then(() =>console.log('Connected...'))
-     .catch(err => console.log(err))
+    mongoose
+      .connect(
+        "mongodb+srv://muhammadalishuhratjonov50:KVQH5gGIsbk4WuBN@cluster0.fbfyrbi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        }
+      )
+      .then(() => console.log("Connected..."))
+      .catch((err) => console.log(err));
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 }
 
