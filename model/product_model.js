@@ -20,7 +20,6 @@ const productModel = new mongoose.Schema({
   },
   new_price: {
     type: Number,
-    default: 0
   },
   old_price: {
     type: Number,
@@ -33,7 +32,7 @@ const productModel = new mongoose.Schema({
       productTitle: String,
       productPrice: Number,
       image: String,
-      pizzaSize: "" | "" | "",
+      pizzaSize: String,
       category: {
         type: String,
         default: "pizza"
