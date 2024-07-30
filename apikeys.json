@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "bellissimo-430913",
+  "private_key_id": "5899cd45509dfd6bb27a28dd7d2687ecb590ab9f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDbW59LLy3LFTEP\nrlLZYBoz6WSLfAxOMr1S+YqpQ+Dgj1LYa322rPaLPbzH8m0JfPy7dV0OE5Af63YJ\ne0rRifWiEbAvpn8Dv3KLNF3o7n3HmVCKbvZQ9IKr1li3iOQuOqGtGwJnMaUmE/cm\nfTDgj3uCK7yXIYMnHyOaG+XUjXyZ2kaNVa/QHYqNC5wbSME9FFThCwwZdW9peOF+\nZVoj6J9rLrZ1+L5D+80MkYzpNRVFAJfHmkVg7kCLBQoTGkJ31cFkVssAwrVPVa9h\n0XSo3doQIPuVh0o7eYkL+w/jVFDPeuoo6dE5muCkJw0x19Nt+H7bBUmsr5ebU0aH\nPX6EhTnhAgMBAAECgf9dayFL3UVpvhZG0PBq4u95BcyfTeHWHuwoiiqJxTHgCl0E\nQVyO9g2JZaGGn0sQeP118cwCuRIhuR8Fd4LfLU6ocIZrXkNGTu8MZodLMnmFDiYS\nAdYLMONb8Zn9KXw3Gk4AcTnbLA/JR6qmszcKa6papYW+vbO9O+W0Am2LnmkrzwY8\nM/Q1WOAUzevjfy2dlxR9KrhYQFXnXQbD1Z914k5xVLhWjepQ/V7PfqS1r2nElSEm\n4ExB69NrHwnNDhoPg6EAkxccUP/pBdUZPhy8mI1+1sbJdrmBhvda6T0OOMkpDXRu\nN9ApHkHAug01Gb/INmg6pAAkAEpjtOfc2cYp6iECgYEA716Zp1k196MUIlu2RU0F\nHDa4CAlf83Nua4hBIChM2fKdFn1jyhNwBSDG2ZFhuFauQMze+g74HKYfYOJ62nTF\nneUTcSV/x9D37y2c0hZBE+GYNViZaRfNbJuhSccS/67U31/LKuUuR+NKycknTBGZ\nIeW8ae4EpSpBp7BxpxZPD5ECgYEA6pkY7OgUZuEXdj4XWKDx0mWIWtsknfAOQ6VX\ngH73t8oTvM7JiwFleskuTxHJGFwLyTETlTSu2y+/yD/1ohcaBnWvu5JWc5C++o/0\n+fhS86Mx5v3Y5ULHtSojMiRU8ZowfB7UdxDm5BPYUeMFC10qu4wJdwFoe0xi7ygk\ndD+v/VECgYBhdEhmg8GfErwNyP0KdfMQq459ZyOzgFmCWjT5nK69RTODhoVsLkG7\nNL8AsVnxrQjAxSg68oE9WL0Juut9qXETecJSnIvLlF58+DsSpZDVQVGw1mOPD+vI\nvgwKd4xaoJl2YA/dZPVUu0sloEnphHit/lSZZBhsDiow1XtQJZsGoQKBgCA/tXZz\nnMJbtO7zMCBl13g1rt3WfB0d78gKxZGLYqAoLjhpMLlkEsAjQbNq3Xr0xEX+8hMz\nr8m/sZxkdm62wEQdD3A4eJvgTPCCs4ldQoHtcCGxyYwSdwOHbFkrN2YS7RFS56AK\necLmm3j+PSZHw2UOpgpu7h7s7Di2CvTUAGxRAoGBAKM1NheHAbjJCzIIsj1WPZto\nJwTI9IQfstqpoFBNsxTqodQNEvC9HKPbzwSvpXG3DUr2ODsfC1VPDZ2jTA1etUAO\n7qfZiLziQ3Q5br1y1htxbTesVrqC1oT2UHIGxaUHdgQvThVQyTIzsSGBwJDd7t7g\nUNm1vDGAyMhDln+ZUvz9\n-----END PRIVATE KEY-----\n",
+  "client_email": "bellissimo@bellissimo-430913.iam.gserviceaccount.com",
+  "client_id": "100374627715416804252",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bellissimo%40bellissimo-430913.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

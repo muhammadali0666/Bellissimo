@@ -8,6 +8,10 @@ const connectDb = require("./db/config");
 const productRouter = require("./router/product_router");
 const userRouter = require("./router/user_router");
 const errorMiddleware = require("./middleware/error.middleware");
+///////////// google drive
+// const fs = require('fs');
+// const { google }= require('googleapis');
+// const apikeys = require("./apikeys.json");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -40,7 +44,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.use("/images", express.static("https://bellissimo-avt2.onrender.com/upload/images"));
+app.use(
+  "/images",
+  express.static("https://bellissimo-avt2.onrender.com/upload/images")
+);
 
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
@@ -49,13 +56,52 @@ app.post("/upload", upload.single("product"), (req, res) => {
   });
 });
 
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
   res.json({
-    message: "success"
-  })
-})
+    message: "success",
+  });
+});
+
+///////// google drive
+
+// const SCOPE = ["https://googleapis.com/auth/drive"];
+
+// async function authorize(){
+//   const jwtClient = new google.auth.JWT(
+//       apikeys.client_email,
+//       null,
+//       apikeys.private_key,
+//       SCOPE
+//   );
+//   await jwtClient.authorize();
+//   return jwtClient;
+// }
+
+// async function uploadFile(authClient){
+//   return new Promise((resolve,rejected)=>{
+//       const drive = google.drive({version:'v2',auth:authClient}); 
+//       var fileMetaData = {
+//           name:'mydrivetext.txt',    
+//           parents:['1bZoTbqCew34MGr1DfgczcA40ECM_QhKg'] // A folder ID to which file will get uploaded
+//       }
+//       drive.files.create({
+//           resource:fileMetaData,
+//           media:{
+//               body: fs.createReadStream('test.txt'), // files that will get uploaded
+//               mimeType:'text/plain'
+//           },
+//           fields:'id'
+//       },function(error,file){
+//           if(error){
+//               return rejected(error)
+//           }
+//           resolve(file);
+//       })
+//   });
+// }
+// authorize().then(uploadFile).catch("error");
 
 app.listen(PORT, () => {
   console.log(`server is running`);
