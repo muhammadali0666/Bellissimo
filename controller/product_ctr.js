@@ -86,6 +86,18 @@ const updateProduct = async (req, res, next) => {
 
 //////////////////////////// pizza products
 
+const getPizzaProducts = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const foundedPizza = await Products.findById({ _id: id });
+
+    return res.json(foundedPizza.pizza_products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createPizzaProduct = async (req, res, next) => {
   try {
     const { pizzaId, productTitle, productPrice, image, pizzaSize } = req.body;
@@ -151,4 +163,5 @@ module.exports = {
   // pizzaProduct
   createPizzaProduct,
   deletePizzaProduct,
+  getPizzaProducts,
 };
