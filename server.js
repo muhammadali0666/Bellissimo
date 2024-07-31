@@ -46,7 +46,7 @@ const upload = multer({ storage: storage });
 
 app.use(
   "/images",
-  express.static("https://bellissimo-avt2.onrender.com/upload/images")
+  express.static("upload/images")
 );
 
 app.post("/upload", upload.single("product"), (req, res) => {

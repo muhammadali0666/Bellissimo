@@ -16,7 +16,7 @@ const register = async (req, res, next) => {
       service: "gmail",
       auth: {
         user: "muhammadalishuhratjonov50@gmail.com",
-        pass: "gmlmvvatzkuedfqe",
+        pass: "vkji hkwm phxx hwir",
       },
     });
 
@@ -62,7 +62,7 @@ const register = async (req, res, next) => {
 
     return res.status(201).json({
       status: 201,
-      message: "Registered!",
+      message: "User has been registered please check your gmail inbox",
       email,
     });
   } catch (error) {
@@ -108,7 +108,10 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     let user = await User.findOne({ email: email });
-
+    
+    if (!user) {
+      throw BaseError.BadRequest("Email not found");
+    }
     let founEmail = user.email === email;
 
     if (!founEmail) {
