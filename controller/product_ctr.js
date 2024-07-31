@@ -44,52 +44,6 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-//////////////////////////// pizza products
-
-const createPizzaProduct = async (req, res, next) => {
-  try {
-    const { pizzaId, productTitle, productPrice, image, pizzaSize } = req.body;
-
-    const foundedPizza = await Products.findById({ _id: pizzaId });
-
-    const newProduct = {
-      productTitle,
-      productPrice,
-      image,
-      pizzaSize,
-    };
-
-    if(foundedPizza.category !== "pizza"){
-      throw BaseError.BadRequest("This api for only pizza, you need select pizza for category field");
-    }
-
-    foundedPizza.pizza_products.push(newProduct);
-
-    foundedPizza.save();
-    return res.status(201).json({
-      status: 201,
-      message: "Pizza product added",
-      result: newProduct,
-    });
-    // const newProduct = await Products.create({
-    //   productTitle,
-    //   productPrice,
-    //   image,
-    //   pizzaSize,
-    // });
-
-    // return res.status(201).json({
-    //   status: 201,
-    //   message: "Product added",
-    //   result: newProduct,
-    // });
-  } catch (error) {
-    next(error);
-  }
-};
-
-//////////////////////////// pizza products
-
 const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -130,11 +84,71 @@ const updateProduct = async (req, res, next) => {
   }
 };
 
+//////////////////////////// pizza products
+
+const createPizzaProduct = async (req, res, next) => {
+  try {
+    const { pizzaId, productTitle, productPrice, image, pizzaSize } = req.body;
+
+    const foundedPizza = await Products.findById({ _id: pizzaId });
+
+    const newProduct = {
+      productTitle,
+      productPrice,
+      image,
+      pizzaSize,
+    };
+
+    if (foundedPizza.category !== "pizza") {
+      throw BaseError.BadRequest(
+        "This api for only pizza, you need select pizza for category field"
+      );
+    }
+
+    foundedPizza.pizza_products.push(newProduct);
+
+    foundedPizza.save();
+    return res.status(201).json({
+      status: 201,
+      message: "Pizza product added",
+      result: newProduct,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deletePizzaProduct = async (req, res, next) => {
+  try {
+    const { pizzaId, pizzaProductId } = req.body;
+
+    const foundedPizza = await Products.findById({ _id: pizzaId });
+
+    const foundedPizzaProduct = foundedPizza.pizza_products.findIndex(
+      (product) => product.id === pizzaProductId
+    );
+
+    foundedPizza.pizza_products.splice(foundedPizzaProduct, 1);
+
+    await foundedPizza.save();
+    return res.status(201).json({
+      status: 201,
+      message: "Pizza product deleted",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//////////////////////////// pizza products
+
 module.exports = {
   getAllProducts,
   getOneProduct,
   createProduct,
-  createPizzaProduct,
   deleteProduct,
   updateProduct,
+  // pizzaProduct
+  createPizzaProduct,
+  deletePizzaProduct,
 };
