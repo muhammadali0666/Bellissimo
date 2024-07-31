@@ -1,3 +1,4 @@
+const BaseError = require("../errors/base_error");
 const { Products } = require("../model");
 
 const getAllProducts = async (_, res, next) => {
@@ -57,6 +58,10 @@ const createPizzaProduct = async (req, res, next) => {
       image,
       pizzaSize,
     };
+
+    if(foundedPizza.category !== "pizza"){
+      throw BaseError.BadRequest("This api for only pizza, you need select pizza for category field");
+    }
 
     foundedPizza.pizza_products.push(newProduct);
 

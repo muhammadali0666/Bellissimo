@@ -52,7 +52,7 @@ app.use(
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `https://bellissimo-avt2.onrender.com/images/${req.file.filename}`,
+    image_url: `http://localhost:${PORT}/images/${req.file.filename}`,
   });
 });
 
