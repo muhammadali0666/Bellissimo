@@ -130,6 +130,33 @@ const createPizzaProduct = async (req, res, next) => {
   }
 };
 
+const updatePizzaProduct = async (req, res, next) => {
+  try {
+    const { pizzaId, pizzaProductId, productTitle, productPrice, image, pizzaSize } = req.body;
+
+    const foundedPizza = await Products.findById({ _id: pizzaId });
+
+    const foundedPizzaProduct = foundedPizza.pizza_products.find(
+      (product) => product.id === pizzaProductId
+    );
+
+    if(foundedPizzaProduct){
+      foundedPizzaProduct.productTitle = productTitle ? productTitle : foundedPizzaProduct.productTitle
+      foundedPizzaProduct.productPrice = productPrice ? productPrice : foundedPizzaProduct.productPrice
+      foundedPizzaProduct.image = image ? image : foundedPizzaProduct.image
+      foundedPizzaProduct.pizzaSize = pizzaSize ? pizzaSize : foundedPizzaProduct.pizzaSize
+    }
+
+    await foundedPizza.save();
+    return res.status(201).json({
+      status: 201,
+      message: "Pizza product updated",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deletePizzaProduct = async (req, res, next) => {
   try {
     const { pizzaId, pizzaProductId } = req.body;
@@ -161,7 +188,8 @@ module.exports = {
   deleteProduct,
   updateProduct,
   // pizzaProduct
-  createPizzaProduct,
-  deletePizzaProduct,
   getPizzaProducts,
+  createPizzaProduct,
+  updatePizzaProduct,
+  deletePizzaProduct,
 };
