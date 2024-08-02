@@ -132,7 +132,14 @@ const createPizzaProduct = async (req, res, next) => {
 
 const updatePizzaProduct = async (req, res, next) => {
   try {
-    const { pizzaId, pizzaProductId, productTitle, productPrice, image, pizzaSize } = req.body;
+    const {
+      pizzaId,
+      pizzaProductId,
+      productTitle,
+      productPrice,
+      image,
+      pizzaSize,
+    } = req.body;
 
     const foundedPizza = await Products.findById({ _id: pizzaId });
 
@@ -140,11 +147,17 @@ const updatePizzaProduct = async (req, res, next) => {
       (product) => product.id === pizzaProductId
     );
 
-    if(foundedPizzaProduct){
-      foundedPizzaProduct.productTitle = productTitle ? productTitle : foundedPizzaProduct.productTitle
-      foundedPizzaProduct.productPrice = productPrice ? productPrice : foundedPizzaProduct.productPrice
-      foundedPizzaProduct.image = image ? image : foundedPizzaProduct.image
-      foundedPizzaProduct.pizzaSize = pizzaSize ? pizzaSize : foundedPizzaProduct.pizzaSize
+    if (foundedPizzaProduct) {
+      foundedPizzaProduct.productTitle = productTitle
+        ? productTitle
+        : foundedPizzaProduct.productTitle;
+      foundedPizzaProduct.productPrice = productPrice
+        ? productPrice
+        : foundedPizzaProduct.productPrice;
+      foundedPizzaProduct.image = image ? image : foundedPizzaProduct.image;
+      foundedPizzaProduct.pizzaSize = pizzaSize
+        ? pizzaSize
+        : foundedPizzaProduct.pizzaSize;
     }
 
     await foundedPizza.save();

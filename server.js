@@ -8,6 +8,7 @@ const connectDb = require("./db/config");
 const productRouter = require("./router/product_router");
 const userRouter = require("./router/user_router");
 const errorMiddleware = require("./middleware/error.middleware");
+const slideRouter = require("./router/slider_router");
 ///////////// google drive
 // const fs = require('fs');
 // const { google }= require('googleapis');
@@ -29,6 +30,7 @@ connectDb();
 /////////// router
 app.use(productRouter);
 app.use(userRouter);
+app.use(slideRouter)
 
 ///////////////// image storage engine
 
