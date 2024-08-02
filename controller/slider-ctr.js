@@ -31,12 +31,26 @@ const updateSlide = async (req, res, next) => {
       image,
     });
 
-    const foundedProduct = await Slide.findById(id);
+    const foundedSlide = await Slide.findById(id);
 
     res.status(201).json({
       status: 201,
       message: "Successfully updated",
-      result: foundedProduct,
+      result: foundedSlide,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteSlide = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const foundedSlide = await Slide.findByIdAndDelete({ _id: id });
+    res.status(201).json({
+      message: "Successfully deleted",
+      status: 201,
+      result: foundedSlide,
     });
   } catch (error) {
     next(error);
@@ -46,5 +60,6 @@ const updateSlide = async (req, res, next) => {
 module.exports = {
   getSlides,
   createSlide,
-  updateSlide
+  updateSlide,
+  deleteSlide
 };
