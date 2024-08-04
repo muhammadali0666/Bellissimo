@@ -89,7 +89,7 @@ const verifyCode = async (req, res, next) => {
         { id: user.id, email: user.email, role: user.role },
         process.env.SEKRET_KEY,
         {
-          expiresIn: "24h",
+          expiresIn: "7d",
         }
       );
       return res.status(201).send({
