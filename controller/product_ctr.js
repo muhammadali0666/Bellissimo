@@ -25,6 +25,8 @@ const createProduct = async (req, res, next) => {
     const { title, description, image, category, new_price, old_price } =
       req.body;
 
+      console.log(title, description, image, category, new_price, old_price)
+
     const newProduct = await Products.create({
       title,
       description,
