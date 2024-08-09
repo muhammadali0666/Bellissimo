@@ -25,8 +25,6 @@ const createProduct = async (req, res, next) => {
     const { title, description, image, category, new_price, old_price } =
       req.body;
 
-      console.log(title, description, image, category, new_price, old_price)
-
     const newProduct = await Products.create({
       title,
       description,
@@ -40,20 +38,6 @@ const createProduct = async (req, res, next) => {
       status: 201,
       message: "Product added",
       result: newProduct,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const deleteProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const foundedProduct = await Products.findByIdAndDelete({ _id: id });
-    res.status(201).json({
-      message: "Successfully deleted",
-      status: 201,
-      result: foundedProduct,
     });
   } catch (error) {
     next(error);
@@ -79,6 +63,20 @@ const updateProduct = async (req, res, next) => {
     res.status(201).json({
       status: 201,
       message: "Successfully updated",
+      result: foundedProduct,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const foundedProduct = await Products.findByIdAndDelete({ _id: id });
+    res.status(201).json({
+      message: "Successfully deleted",
+      status: 201,
       result: foundedProduct,
     });
   } catch (error) {
@@ -196,6 +194,18 @@ const deletePizzaProduct = async (req, res, next) => {
 
 //////////////////////////// pizza products
 
+//////////////////////////// combo
+
+const addKombo = async (req, res, next) => {
+  try {
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+//////////////////////////// combo
+
 module.exports = {
   getAllProducts,
   getOneProduct,
@@ -207,4 +217,6 @@ module.exports = {
   createPizzaProduct,
   updatePizzaProduct,
   deletePizzaProduct,
+  // combo
+  addKombo
 };

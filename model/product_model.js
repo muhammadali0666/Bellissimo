@@ -35,8 +35,42 @@ const productModel = new mongoose.Schema({
       pizzaSize: String,
       category: {
         type: String,
-        default: "pizza"
-      }
+        default: "pizza",
+      },
+    },
+  ],
+  kombo: [
+    {
+      id: { type: String, default: v4() },
+      komboImage: String,
+      komboTitle: String,
+      komboDescription: String,
+      komboPrice: Number,
+      snack: Boolean,
+      drink: Boolean,
+      pizza: Boolean,
+      bellister: Boolean,
+      dessert: Boolean,
+      snackCount: {
+        type: Number,
+        default: 0,
+      },
+      drinkCount: {
+        type: Number,
+        default: 0,
+      },
+      pizzaCount: {
+        type: Number,
+        default: 0,
+      },
+      bellisterCount: {
+        type: Number,
+        default: 0,
+      },
+      dessertCount: {
+        type: Number,
+        default: 0,
+      },
     },
   ],
 });

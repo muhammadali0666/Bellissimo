@@ -9,6 +9,7 @@ const {
   deletePizzaProduct,
   getPizzaProducts,
   updatePizzaProduct,
+  addKombo,
 } = require("../controller/product_ctr");
 const requireAdmin = require("../middleware/tokenChecker");
 
@@ -24,5 +25,7 @@ productRouter.get("/get_pizza_products/:id", getPizzaProducts)
 productRouter.post("/add_pizza_product", requireAdmin, createPizzaProduct);
 productRouter.put("/update_pizza_product", requireAdmin, updatePizzaProduct)
 productRouter.delete("/delete_pizza_product", requireAdmin, deletePizzaProduct)
+///////////////// kombo
+productRouter.post("/add_kombo", requireAdmin, addKombo)
 
 module.exports = productRouter;
