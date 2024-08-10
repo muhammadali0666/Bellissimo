@@ -58,7 +58,18 @@ const getAllKombos = async (req, res, next) => {
   }
 };
 
+const getOneKombo = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const foundedKombo = await Kombo.findById({ _id: id });
+    return res.status(200).json(foundedKombo);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addKombo,
   getAllKombos,
+  getOneKombo,
 };
