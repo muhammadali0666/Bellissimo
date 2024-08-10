@@ -1,12 +1,13 @@
-const {Kombo} = require("../model")
+const { Kombo } = require("../model");
 
 const addKombo = async (req, res, next) => {
   try {
     const {
-      komboImage,
-      komboTitle,
-      komboDescription,
-      komboPrice,
+      image,
+      title,
+      description,
+      old_price,
+      new_price,
       snack,
       drink,
       pizza,
@@ -19,7 +20,29 @@ const addKombo = async (req, res, next) => {
       dessertCount,
     } = req.body;
 
-    await Products
+    const kombo = await Kombo.create({
+      image,
+      title,
+      description,
+      old_price,
+      new_price,
+      snack,
+      drink,
+      pizza,
+      bellister,
+      dessert,
+      snackCount,
+      drinkCount,
+      pizzaCount,
+      bellisterCount,
+      dessertCount,
+    });
+
+    return res.status(201).json({
+      status: 201,
+      message: "Kombo has been added",
+      result: kombo,
+    });
   } catch (error) {
     next(error);
   }
@@ -35,8 +58,7 @@ const getAllKombos = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
   addKombo,
-  getAllKombos
-}
+  getAllKombos,
+};
