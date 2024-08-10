@@ -89,7 +89,7 @@ const verifyCode = async (req, res, next) => {
         { id: user.id, email: user.email, role: user.role },
         process.env.SEKRET_KEY,
         {
-          expiresIn: "7d",
+          expiresIn: process.env.TIME,
         }
       );
       return res.status(201).send({
@@ -125,7 +125,7 @@ const login = async (req, res, next) => {
         { id: user.id, email: user.email, role: user.role },
         process.env.SEKRET_KEY,
         {
-          expiresIn: "24h",
+          expiresIn: process.env.TIME,
         }
       );
       return res.status(201).json({
