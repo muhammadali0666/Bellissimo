@@ -1,25 +1,6 @@
 const BaseError = require("../errors/base_error");
 const { Products } = require("../model");
 
-const getAllProducts = async (_, res, next) => {
-  try {
-    const products = await Products.find();
-    return res.status(200).json(products);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getOneProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await Products.findOne({ _id: id });
-    return res.status(200).json(product);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const createProduct = async (req, res, next) => {
   try {
     const { title, description, image, category, new_price, old_price } =
@@ -39,6 +20,25 @@ const createProduct = async (req, res, next) => {
       message: "Product added",
       result: newProduct,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllProducts = async (_, res, next) => {
+  try {
+    const products = await Products.find();
+    return res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOneProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Products.findOne({ _id: id });
+    return res.status(200).json(product);
   } catch (error) {
     next(error);
   }
@@ -86,18 +86,6 @@ const deleteProduct = async (req, res, next) => {
 
 //////////////////////////// pizza products
 
-const getPizzaProducts = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const foundedPizza = await Products.findById({ _id: id });
-
-    return res.json(foundedPizza.pizza_products);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const createPizzaProduct = async (req, res, next) => {
   try {
     const { pizzaId, productTitle, productPrice, image, pizzaSize } = req.body;
@@ -125,6 +113,18 @@ const createPizzaProduct = async (req, res, next) => {
       message: "Pizza product added",
       result: newProduct,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPizzaProducts = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const foundedPizza = await Products.findById({ _id: id });
+
+    return res.json(foundedPizza.pizza_products);
   } catch (error) {
     next(error);
   }
@@ -194,29 +194,15 @@ const deletePizzaProduct = async (req, res, next) => {
 
 //////////////////////////// pizza products
 
-//////////////////////////// combo
-
-const addKombo = async (req, res, next) => {
-  try {
-
-  } catch (error) {
-    next(error);
-  }
-};
-
-//////////////////////////// combo
-
 module.exports = {
+  createProduct,
   getAllProducts,
   getOneProduct,
-  createProduct,
-  deleteProduct,
   updateProduct,
+  deleteProduct,
   // pizzaProduct
-  getPizzaProducts,
   createPizzaProduct,
+  getPizzaProducts,
   updatePizzaProduct,
   deletePizzaProduct,
-  // combo
-  addKombo
 };

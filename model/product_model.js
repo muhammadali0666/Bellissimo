@@ -39,7 +39,7 @@ const productModel = new mongoose.Schema({
       },
     },
   ],
-  kombo: [
+  kombos: [
     {
       id: { type: String, default: v4() },
       komboImage: String,

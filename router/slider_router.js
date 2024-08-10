@@ -4,8 +4,8 @@ const { createSlide, getSlides, updateSlide, deleteSlide } = require("../control
 
 const slideRouter = Router()
 
-slideRouter.get("/get_slides", getSlides)
 slideRouter.post("/create_slide", requireAdmin, createSlide)
+slideRouter.get("/get_slides", getSlides)
 slideRouter.put("/update_slide/:id", requireAdmin, updateSlide)
 slideRouter.delete("/delete_slide/:id", requireAdmin, deleteSlide)
 
