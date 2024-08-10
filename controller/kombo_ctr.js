@@ -68,8 +68,74 @@ const getOneKombo = async (req, res, next) => {
   }
 };
 
+const updateKombo = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const {
+      image,
+      title,
+      description,
+      old_price,
+      new_price,
+      snack,
+      drink,
+      pizza,
+      bellister,
+      dessert,
+      snackCount,
+      drinkCount,
+      pizzaCount,
+      bellisterCount,
+      dessertCount,
+    } = req.body;
+    await Kombo.findByIdAndUpdate(id, {
+      image,
+      title,
+      description,
+      old_price,
+      new_price,
+      snack,
+      drink,
+      pizza,
+      bellister,
+      dessert,
+      snackCount,
+      drinkCount,
+      pizzaCount,
+      bellisterCount,
+      dessertCount,
+    });
+
+    const foundedProduct = await Kombo.findById(id);
+
+    res.status(201).json({
+      status: 201,
+      message: "Successfully updated",
+      result: foundedProduct,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteKombo = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const foundedProduct = await Kombo.findByIdAndDelete({ _id: id });
+    res.status(201).json({
+      message: "Successfully deleted",
+      status: 201,
+      result: foundedProduct,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addKombo,
   getAllKombos,
   getOneKombo,
+  updateKombo,
+  deleteKombo,
 };
