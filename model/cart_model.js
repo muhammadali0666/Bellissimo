@@ -11,6 +11,8 @@ const CartSchema = new mongoose.Schema({
       old_price: String,
       image: String,
       category: String,
+      pizzaSize: String,
+      pizza_products: []
     },
   ],
   active: { type: Boolean, default: true },

@@ -18,6 +18,11 @@ const addKombo = async (req, res, next) => {
       pizzaCount,
       bellisterCount,
       dessertCount,
+      snackIdes,
+      drinkIdes,
+      pizzaIdes,
+      bellisterIdes,
+      dessertIdes
     } = req.body;
 
     const kombo = await Kombo.create({
@@ -36,6 +41,11 @@ const addKombo = async (req, res, next) => {
       pizzaCount,
       bellisterCount,
       dessertCount,
+      snackIdes,
+      drinkIdes,
+      pizzaIdes,
+      bellisterIdes,
+      dessertIdes
     });
 
     return res.status(201).json({

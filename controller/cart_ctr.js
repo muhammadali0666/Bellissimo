@@ -2,7 +2,7 @@ const BaseError = require("../errors/base_error");
 const { Cart, Products } = require("../model");
 
 const cart = async (req, res, next) => {
-  const { productId, quantity } = req.body;
+  const { productId, quantity, pizza_products } = req.body;
   const userId = acceptVariable.id;
   // TODO: Get the logged-in user's ID
   try {
@@ -34,11 +34,12 @@ const cart = async (req, res, next) => {
       cart.products.push({
         productId: productId,
         quantity,
-        name: foundedProduct.name,
+        title: foundedProduct.title,
         new_price: foundedProduct.new_price,
         old_price: foundedProduct.old_price,
         image: foundedProduct.image,
         category: foundedProduct.category,
+        pizza_products:foundedProduct.category === "pizza" ? [...pizza_products] : null
       });
     }
 
