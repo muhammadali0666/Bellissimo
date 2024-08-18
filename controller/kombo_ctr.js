@@ -58,26 +58,6 @@ const addKombo = async (req, res, next) => {
   }
 };
 
-const getAllKombos = async (req, res, next) => {
-  try {
-    const products = await Kombo.find();
-
-    return res.json(products);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getOneKombo = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const foundedKombo = await Kombo.findById({ _id: id });
-    return res.status(200).json(foundedKombo);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const updateKombo = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -154,8 +134,6 @@ const deleteKombo = async (req, res, next) => {
 
 module.exports = {
   addKombo,
-  getAllKombos,
-  getOneKombo,
   updateKombo,
   deleteKombo,
 };

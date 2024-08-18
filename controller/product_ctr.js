@@ -1,5 +1,5 @@
 const BaseError = require("../errors/base_error");
-const { Products } = require("../model");
+const { Products, Kombo } = require("../model");
 
 const createProduct = async (req, res, next) => {
   try {
@@ -28,7 +28,9 @@ const createProduct = async (req, res, next) => {
 const getAllProducts = async (_, res, next) => {
   try {
     const products = await Products.find();
-    return res.status(200).json(products);
+    const kombos = await Kombo.find();
+    const datas = [...kombos, ...products];
+    return res.status(200).json(datas);
   } catch (error) {
     next(error);
   }
@@ -38,7 +40,8 @@ const getOneProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await Products.findOne({ _id: id });
-    return res.status(200).json(product);
+    const kombo = await Kombo.findOne({ _id: id });
+    return res.status(200).json(product ? product : kombo);
   } catch (error) {
     next(error);
   }
