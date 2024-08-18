@@ -39,7 +39,7 @@ const cart = async (req, res, next) => {
         old_price: foundedProduct.old_price,
         image: foundedProduct.image,
         category: foundedProduct.category,
-        pizza_products:foundedProduct.category === "pizza" ? [...pizza_products] : null
+        pizza_products:foundedProduct.category === "pizza" ? [...pizza_products] : []
       });
     }
 
