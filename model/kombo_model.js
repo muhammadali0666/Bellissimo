@@ -22,6 +22,10 @@ const komboModel = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  category: {
+    type: String,
+    default: 0
+  },
   snack: Boolean,
   drink: Boolean,
   pizza: Boolean,
