@@ -12,7 +12,8 @@ const CartSchema = new mongoose.Schema({
       image: String,
       category: String,
       pizzaSize: String,
-      pizza_products: []
+      pizza_products: [],
+      kombo_products: []
     },
   ],
   active: { type: Boolean, default: true },
