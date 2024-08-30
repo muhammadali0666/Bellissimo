@@ -18,6 +18,10 @@ const cart = async (req, res, next) => {
 
     const foundedProduct = await Products.findById(productId);
 
+    if (!foundedProduct) {
+      throw BaseError.BadRequest("Product is not defind");
+    }
+
     if (!cart) {
       // Create a new cart for the user
       cart = new Cart({ userId, products: [] });
@@ -39,8 +43,10 @@ const cart = async (req, res, next) => {
         old_price: foundedProduct.old_price,
         image: foundedProduct.image,
         category: foundedProduct.category,
-        pizza_products: foundedProduct.category === "pizza" ? [...pizza_products] : [],
-        kombo_products: foundedProduct.category === "kombo" ? [...kombo_products] : [],
+        pizza_products:
+          foundedProduct.category === "pizza" ? [...pizza_products] : [],
+        kombo_products:
+          foundedProduct.category === "kombo" ? [...kombo_products] : [],
       });
     }
 
@@ -53,6 +59,16 @@ const cart = async (req, res, next) => {
   }
 };
 
+const getCarts = async (req, res, next) => {
+  try {
+    const getAllCarts = await Cart.find();
+    return res.status(200).json(getAllCarts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   cart,
+  getCarts
 };
