@@ -5,7 +5,7 @@ const requireAdmin = require("../middleware/tokenChecker");
 const cartRouter = Router();
 
 cartRouter.post("/add_cart", requireAdmin, cart);
-cartRouter.get("/get_cart", getCarts);
+cartRouter.get("/get_cart", requireAdmin, getCarts);
 cartRouter.delete("/delete_cart/:id", requireAdmin, deleteCart)
 
 module.exports = cartRouter;

@@ -10,15 +10,13 @@ const cart = async (req, res, next) => {
 
     const doubleFounder = cart?.products.find((c) => c.productId === productId);
 
-    // if (doubleFounder) {
-    //   throw BaseError.BadRequest(
-    //     "Click the Add to Cart button to increase the number of products previously added."
-    //   );
-    // }
+    if (doubleFounder) {
+      throw BaseError.BadRequest(
+        "Click the Add to Cart button to increase the number of products previously added."
+      );
+    }
 
     const foundedProduct = await Products.findById(productId);
-
-    console.log(foundedProduct);
 
     if (!foundedProduct) {
       throw BaseError.BadRequest("Product is not defind");
@@ -63,7 +61,8 @@ const cart = async (req, res, next) => {
 
 const getCarts = async (req, res, next) => {
   try {
-    const getAllCarts = await Cart.find();
+    const userId = acceptVariable.id;
+    const getAllCarts = await Cart.find({userId: userId});
     return res.status(200).json(getAllCarts);
   } catch (error) {
     next(error);
