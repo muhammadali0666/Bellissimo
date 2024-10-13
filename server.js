@@ -64,7 +64,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
 
 app.use(errorMiddleware);
 
-app.get("/", (req, res) => {
+app.get("/salom", (req, res) => {
   res.json({
     message: "success",
   });
